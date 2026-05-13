@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+
+<style>
+
+body{
+font-family:Arial;
+background:#eee;
+padding:20px;
+}
+
+.container{
+background:white;
+border:1px solid #ccc;
+padding:15px;
+border-radius:5px;
+}
+
+.header{
+font-weight:bold;
+margin-bottom:15px;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+}
+
+th,td{
+border:1px solid #ddd;
+padding:8px;
+font-size:13px;
+}
+
+th{
+background:#f7f7f7;
+text-align:left;
+}
+
+.status{
+padding:3px 6px;
+color:white;
+border-radius:4px;
+font-size:11px;
+}
+
+.banned{background:#d9534f;}
+.pending{background:#f0ad4e;}
+.active{background:#5cb85c;}
+
+.btn{
+padding:3px 6px;
+border:none;
+color:white;
+font-size:11px;
+margin-right:2px;
+border-radius:3px;
+cursor:pointer;
+}
+
+.view{background:#5cb85c;}
+.edit{background:#5bc0de;}
+.delete{background:#d9534f;}
+
+.footer{
+display:flex;
+justify-content:space-between;
+margin-top:10px;
+}
+
+.pagebtn{
+padding:4px 8px;
+border:1px solid #ccc;
+cursor:pointer;
+background:white;
+}
+
+.activepage{
+background:#ddd;
+}
+
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<div class="header">👤 Members</div>
+
+<table>
+<thead>
+<tr>
+<th>Username</th>
+<th>Date registered</th>
+<th>Role</th>
+<th>Status</th>
+<th>Actions</th>
+</tr>
+</thead>
+
+<tbody id="tableBody">
+</tbody>
+
+</table>
+
+<div class="footer">
+<div id="showingText"></div>
+
+<div>
+<button class="pagebtn" onclick="prevPage()">Previous</button>
+
+<button class="pagebtn" onclick="goPage(1)">1</button>
+<button class="pagebtn" onclick="goPage(2)">2</button>
+<button class="pagebtn" onclick="goPage(3)">3</button>
+<button class="pagebtn" onclick="goPage(4)">4</button>
+
+<button class="pagebtn" onclick="nextPage()">Next</button>
+</div>
+</div>
+
+</div>
+
+<script>
+
+let currentPage=1;
+let perPage=10;
+
+let data=[
+
+["Agus Setiawan","2012/02/01","Staff","banned"],
+["Budi Santoso","2012/02/02","Member","pending"],
+["Cahyo Pratama","2012/02/03","Member","active"],
+["Deni Saputra","2012/02/04","Staff","banned"],
+["Eko Nugroho","2012/02/05","Member","pending"],
+["Fajar Ramadhan","2012/02/06","Member","active"],
+["Gilang Maulana","2012/02/07","Staff","banned"],
+["Hadi Wijaya","2012/02/08","Member","pending"],
+["Indra Gunawan","2012/02/09","Member","active"],
+["Joko Susilo","2012/02/10","Staff","banned"],
+
+["Kurniawan","2012/02/11","Member","pending"],
+["Lukman Hakim","2012/02/12","Member","active"],
+["Muhammad Rizki","2012/02/13","Staff","banned"],
+["Nanda Prasetya","2012/02/14","Member","pending"],
+["Oktavian","2012/02/15","Member","active"],
+["Putra Mahendra","2012/02/16","Staff","banned"],
+["Qomaruddin","2012/02/17","Member","pending"],
+["Rizal Fahmi","2012/02/18","Member","active"],
+["Slamet Riyadi","2012/02/19","Staff","banned"],
+["Teguh Prakoso","2012/02/20","Member","pending"],
+
+["Umar Faruq","2012/02/21","Member","active"],
+["Vicky Andika","2012/02/22","Staff","banned"],
+["Wahyu Hidayat","2012/02/23","Member","pending"],
+["Yudi Hartono","2012/02/24","Member","active"],
+["Zainal Abidin","2012/02/25","Staff","banned"],
+["Adi Nugraha","2012/02/26","Member","pending"],
+["Bayu Permana","2012/02/27","Member","active"],
+["Chandra Kusuma","2012/02/28","Staff","banned"],
+["Didik Setiaji","2012/03/01","Member","pending"],
+["Erwin Prasetyo","2012/03/02","Member","active"],
+
+["Fikri Alamsyah","2012/03/03","Staff","banned"],
+["Guntur Saputro","2012/03/04","Member","pending"],
+["Hendri Kurniawan","2012/03/05","Member","active"],
+["Irfan Maulana","2012/03/06","Staff","banned"],
+["Jefri Saputra","2012/03/07","Member","pending"],
+["Kevin Ramdani","2012/03/08","Member","active"],
+["Luthfi Hakim","2012/03/09","Staff","banned"],
+["Mochammad Fikri","2012/03/10","Member","pending"],
+["Nugraha Pratama","2012/03/11","Member","active"],
+["Rendy Kurniawan","2012/03/12","Staff","banned"]
+];
+
+function loadTable(){
+
+let tbody=document.getElementById("tableBody");
+tbody.innerHTML="";
+
+let start=(currentPage-1)*perPage;
+let end=start+perPage;
+
+for(let i=start;i<end;i++){
+
+let s=data[i][3];
+
+tbody.innerHTML+=`
+<tr>
+<td>${data[i][0]}</td>
+<td>${data[i][1]}</td>
+<td>${data[i][2]}</td>
+<td><span class="status ${s}">${s}</span></td>
+<td>
+<button class="btn view">View</button>
+<button class="btn edit">Edit</button>
+<button class="btn delete">Delete</button>
+</td>
+</tr>
+`;
+
+}
+
+document.getElementById("showingText").innerText=
+"Showing "+(start+1)+" to "+(end)+" of 40 entries";
+
+}
+
+function nextPage(){
+if(currentPage<4){
+currentPage++;
+loadTable();
+}
+}
+
+function prevPage(){
+if(currentPage>1){
+currentPage--;
+loadTable();
+}
+}
+
+function goPage(p){
+currentPage=p;
+loadTable();
+}
+
+loadTable();
+
+</script>
+
+</body>
+</html>
