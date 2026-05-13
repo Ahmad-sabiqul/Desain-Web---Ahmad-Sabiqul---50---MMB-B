@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ahmad Sabiqul - Portfolio</title>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome untuk icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-body: #1a1a1a; 
+            --bg-sidebar: #0b3b52;
+            --bg-main: #05010e;
+            --bg-card: #09264a;
+            --color-primary: #00b4d8;
+            --color-text: #ffffff;
+            --color-text-muted: #d0d0d0;
+            --border-blue: #00b4d8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--color-text);
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .main-wrapper {
+            display: flex;
+            background-color: #fff2ddff;
+            border-radius: 30px;
+            padding: 25px;
+            gap: 25px;
+            max-width: 1400px;
+            width: 100%;
+            box-shadow: 0 20px 50px rgba(38, 3, 60, 0.5);
+        }
+
+        .sidebar {
+            width: 320px;
+            background-color: var(--bg-sidebar);
+            border-radius: 20px;
+            padding: 30px 25px;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+        }
+        .sidebar img.profile-img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            transition: 0.3s;
+        }
+        .sidebar img.profile-img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+        }
+        .sidebar h3 { font-size: 18px; font-weight: 400; margin-bottom: 5px; }
+        .sidebar h1 { font-size: 26px; color: var(--color-primary); margin-bottom: 5px; font-weight: 700; }
+        .sidebar h4 { font-size: 13px; font-weight: 400; margin-bottom: 25px; color: #e0e0e0; }
+        .sidebar .divider { width: 40px; height: 2px; background-color: var(--color-primary); margin-bottom: 20px; }
+        .sidebar p.bio { font-size: 13px; color: var(--color-text-muted); line-height: 1.6; margin-bottom: 40px; }
+        
+        .contact-me { margin-top: auto; }
+        .contact-me h2 { font-size: 18px; font-weight: 600; margin-bottom: 20px; }
+        .contact-list { display: flex; flex-direction: column; gap: 15px; }
+        .contact-item { display: flex; align-items: center; gap: 15px; }
+        .contact-icon {
+            width: 35px; height: 35px; background-color: var(--color-primary); 
+            border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 14px; flex-shrink: 0;
+        }
+        .contact-text { font-size: 12px; color: #e0e0e0; line-height: 1.4; }
+
+        /* ======= KONTEN UTAMA KANAN ======= */
+        .content {
+            flex-grow: 1;
+            background-color: var(--bg-main);
+            border: 3px solid var(--border-blue);
+            border-radius: 20px;
+            padding: 60px;
+            overflow-y: auto;
+            max-height: calc(100vh - 90px);
+            position: relative;
+        }
+
+        /* Scrollbar kustom untuk konten */
+        .content::-webkit-scrollbar { width: 10px; }
+        .content::-webkit-scrollbar-track { background: var(--bg-main); border-radius: 10px; margin: 20px 0; }
+        .content::-webkit-scrollbar-thumb { background: #c8c8c8ff; border-radius: 10px; }
+        .content::-webkit-scrollbar-thumb:hover { background: var(--color-primary); }
+
+        /* Header Logo */
+        .header-logo { text-align: center; margin-bottom: 70px; font-size: 26px; font-weight: 800; letter-spacing: 0.5px; }
+        .header-logo span { color: var(--color-primary); }
+        .header-logo::after {
+            content: ''; display: block; width: 60px; height: 2px; background: #fff; margin: 10px auto 0;
+        }
+
+        /* --- Hero Section --- */
+        .hero { display: flex; align-items: center; justify-content: space-between; gap: 40px; margin-bottom: 100px; }
+        .hero-text { flex: 1; }
+        .hero-text h3 { font-size: 20px; font-weight: 400; margin-bottom: 5px; }
+        .hero-text h1 { font-size: 38px; margin-bottom: 5px; font-weight: 700; }
+        .hero-text h1 span { color: var(--color-primary); }
+        .hero-text h4 { font-size: 15px; font-weight: 400; margin-bottom: 20px; color: #e0e0e0; }
+        .hero-text .divider { width: 60px; height: 2px; background-color: var(--color-primary); margin-bottom: 25px; }
+        .hero-text p { font-size: 13px; color: var(--color-text-muted); line-height: 1.6; margin-bottom: 40px; max-width: 480px; }
+        
+        .hero-actions { display: flex; align-items: center; gap: 40px; }
+        .btn-cv { 
+            background-color: #ffffff; color: var(--bg-main); font-weight: 700; padding: 10px 25px; 
+            border-radius: 5px; text-decoration: none; font-size: 13px; transition: 0.3s;
+        }
+        .btn-cv:hover { background-color: var(--color-primary); color: #fff; }
+        
+        .socials { display: flex; align-items: center; gap: 15px; font-size: 13px; color: #e0e0e0; }
+        .social-icon { 
+            width: 30px; height: 30px; border-radius: 50%; color: white; display: flex; 
+            justify-content: center; align-items: center; font-size: 14px; text-decoration: none; transition: 0.3s;
+        }
+        .social-icon:hover { transform: scale(1.1); }
+        .bg-fb { background-color: #3b5998; }
+        .bg-ig { background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%); }
+        .bg-in { background-color: #0077b5; }
+
+        .hero-image { position: relative; flex-shrink: 0; }
+        .hero-image img { 
+            width: 250px; height: 320px; border-radius: 20px; border: 3px solid #ffffff; 
+            box-shadow: -15px 15px 0px rgba(0, 180, 216, 0.4); object-fit: cover;
+        }
+
+        /* --- Offer Section --- */
+        .section-title { text-align: center; margin-bottom: 50px; }
+        .section-title h5 { font-size: 13px; font-weight: 400; color: #a0a0a0; margin-bottom: 10px; }
+        .section-title h2 { font-size: 24px; font-weight: 700; max-width: 450px; margin: 0 auto; line-height: 1.4;}
+
+        .offer-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; margin-bottom: 100px; }
+        .offer-card { text-align: center; }
+        .offer-card img { 
+            width: 100%; height: 200px; border-radius: 20px; border: 2px solid #444; 
+            margin-bottom: 15px; object-fit: cover; transition: 0.3s;
+        }
+        .offer-card:hover img { border-color: var(--color-primary); transform: scale(1.02); }
+        .offer-card h4 { font-size: 14px; font-weight: 400; color: #e0e0e0; }
+
+        /* --- Latest Projects --- */
+        .projects { margin-bottom: 100px; }
+        .projects .section-title h2 { font-size: 22px; margin-bottom: 40px; color: #fff; }
+        .project-list { display: flex; flex-direction: column; gap: 20px; }
+        .project-card { 
+            background-color: var(--bg-card); border: 2px solid #ffffff; border-radius: 15px; 
+            padding: 20px; display: flex; align-items: center; gap: 25px; transition: 0.3s;
+        }
+        .project-card:hover { border-color: var(--color-primary); box-shadow: 0 10px 25px rgba(0,0,0,0.4); }
+        .project-card img { width: 140px; height: 140px; border-radius: 10px; border: 1px solid #555; object-fit: cover; flex-shrink: 0;}
+        .project-info h3 { font-size: 18px; font-weight: 700; margin-bottom: 15px; }
+        .project-info p { font-size: 13px; color: var(--color-text-muted); line-height: 1.5; margin-bottom: 12px; }
+        .project-info .date { font-weight: 700; font-style: italic; font-size: 12px; color: #fff; }
+
+        /* CTA Card */
+        .cta-card { 
+            background-color: var(--bg-card); border: 2px solid #ffffff; border-radius: 15px; 
+            padding: 30px; display: flex; justify-content: space-between; align-items: center; margin-top: 40px;
+        }
+        .cta-card h3 { font-size: 18px; margin-bottom: 5px; }
+        .cta-card p { font-size: 13px; color: var(--color-text-muted); }
+        .btn-email { 
+            background-color: #ffffff; color: var(--bg-card); padding: 10px 30px; 
+            border-radius: 5px; text-decoration: none; font-weight: 700; font-size: 13px; transition: 0.3s; 
+        }
+        .btn-email:hover { background-color: var(--color-primary); color: #fff; }
+
+        /* --- Why Hire Me --- */
+        .hire-me { margin-bottom: 100px; text-align: center; }
+        .hire-me .section-title h2 { font-size: 22px; margin-bottom: 60px; }
+        .hire-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 25px; }
+        .hire-item { text-align: center; }
+        .hire-item i { font-size: 40px; color: #ffffff; margin-bottom: 20px; display: block; }
+        .hire-item h3 { font-size: 15px; margin-bottom: 15px; font-weight: 600; }
+        .hire-item p { font-size: 12px; color: #a0a0a0; line-height: 1.5; }
+
+        /* --- Tools & Skills --- */
+        .skills { margin-bottom: 100px; text-align: center; }
+        .skills h2 { font-size: 20px; margin-bottom: 40px; }
+        .skills-grid { display: flex; justify-content: center; align-items: center; gap: 40px; }
+        .skills-grid img { width: 60px; height: 60px; border-radius: 12px; object-fit: contain; }
+        .skills-grid i { font-size: 60px; color: #fff; }
+        .skills-divider { height: 2px; width: 250px; background-color: var(--color-primary); margin: 50px auto 0; }
+
+        .footer { padding-bottom: 20px; }
+        .footer h2 { font-size: 20px; margin-bottom: 40px; text-align: center; }
+        .footer-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px 40px; max-width: 550px; margin: 0 auto; }
+
+        @media (max-width: 1200px) {
+            .hero { flex-direction: column; text-align: center; }
+            .hero-text .divider { margin: 20px auto; }
+            .hero-actions { justify-content: center; }
+            .hero-image { margin-top: 20px; }
+            .hero-image img { box-shadow: 0px 15px 0px rgba(0, 180, 216, 0.4); } /* Adjust shadow for centered image */
+        }
+        @media (max-width: 992px) {
+            .main-wrapper { flex-direction: column; padding: 15px; border-radius: 20px; }
+            .sidebar { width: 100%; height: auto; position: static; margin-bottom: 0; border-radius: 15px; }
+            .content { padding: 30px 20px; overflow-y: visible; max-height: none; border-radius: 15px; }
+            .offer-grid { grid-template-columns: repeat(2, 1fr); }
+            .hire-grid { grid-template-columns: repeat(2, 1fr); }
+            .skills-grid { flex-wrap: wrap; }
+        }
+        @media (max-width: 768px) {
+            .offer-grid { grid-template-columns: 1fr; }
+            .project-card { flex-direction: column; text-align: center; }
+            .cta-card { flex-direction: column; gap: 20px; text-align: center; }
+            .footer-grid { grid-template-columns: 1fr; }
+            .hire-grid { grid-template-columns: 1fr; }
+            .hero-text h1 { font-size: 32px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-wrapper">
+        
+        <!-- SIDEBAR KIRI -->
+        <aside class="sidebar">
+            <!-- Ganti src ini dengan path foto profil yang asli nantinya -->
+            <img src="{{ asset('img/pdipm.png') }}" alt="Ahmad Sabiqul" class="profile-img">
+            
+            <h3>Hello Buds</h3>
+            <h1>I am Ahmad Sabiqul</h1>
+            <h4>Street Photographer</h4>
+            
+            <div class="divider"></div>
+            
+            <p class="bio">
+                Aku seorang fotografer yang menyukai jenis fotografi jalanan. Juga dikenal sebagai street photography, yang lebih menonjolkan kesan human interest. Dengan pendekatan secara verbal, membuat sebuah foto lebih mengeluarkan cerita dan perasaan tersirat. Pesan dalam sebuah foto menjadi penting, ketika melakukan pemotretan human interest di pinggir jalan. Kehidupan jalanan, menjadi pesan utama bagi hasil karya ku.
+            </p>
+            
+            <div class="contact-me">
+                <h2>Contact me</h2>
+                <div class="contact-list">
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fa-solid fa-location-dot"></i></div>
+                        <div class="contact-text">Kode Pos 60117, Kejawan Putih,<br>Sukolilo, Surabaya</div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fa-solid fa-envelope"></i></div>
+                        <div class="contact-text">asalim1544@gmail.com</div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fa-solid fa-phone"></i></div>
+                        <div class="contact-text">+62 858 1058 7802</div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fa-brands fa-instagram"></i></div>
+                        <div class="contact-text">@ahmad.sabiql</div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- KONTEN UTAMA KANAN -->
+        <main class="content">
+            
+            <div class="header-logo">
+                Sab<span>Creative</span>
+            </div>
+
+            <!-- HERO SECTION -->
+            <section class="hero">
+                <div class="hero-text">
+                    <h3>Hello Buds</h3>
+                    <h1>I am <span>Ahmad Sabiqul</span></h1>
+                    <h4>Street Photographer</h4>
+                    <div class="divider"></div>
+                    <p>
+                        Aku seorang fotografer yang menyukai jenis fotografi jalanan. Juga dikenal sebagai street photography, yang lebih menonjolkan kesan human interest. Dengan pendekatan secara verbal, membuat sebuah foto lebih mengeluarkan cerita dan perasaan tersirat. Pesan dalam sebuah foto menjadi penting, ketika melakukan pemotretan human interest di pinggir jalan. Kehidupan jalanan, menjadi pesan utama bagi hasil karya ku.
+                    </p>
+                    <div class="hero-actions">
+                        <a href="#" class="btn-cv">Download CV</a>
+                        <div class="socials">
+                            <span>Find me on:</span>
+                            <a href="#" class="social-icon bg-fb"><i class="fa-brands fa-facebook-f"></i></a>
+                            <a href="#" class="social-icon bg-ig"><i class="fa-brands fa-instagram"></i></a>
+                            <a href="#" class="social-icon bg-in"><i class="fa-brands fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <!-- Ganti src ini dengan foto memegang radio -->
+                    <img src="{{ asset('img/halti.jpg') }}" alt="Portrait Ahmad Sabiqul">
+                </div>
+            </section>
+
+            <!-- OFFER SECTION -->
+            <section class="offer">
+                <div class="section-title">
+                    <h5>What do i offer?</h5>
+                    <h2>Creates Professional Photography That's Oriented Towards Client Needs</h2>
+                </div>
+                <div class="offer-grid">
+                    <div class="offer-card">
+                        <!-- Ganti dengan gambar aslinya -->
+                        <img src="{{ asset('img/masjid.png') }}" alt="Architecture Photography">
+                        <h4>Architecture Photography</h4>
+                    </div>
+                    <div class="offer-card">
+                        <img src="{{ asset('img/kakek.png') }}" alt="Human Interest Photography">
+                        <h4>Human Interest Photography</h4>
+                    </div>
+                    <div class="offer-card">
+                        <img src="{{ asset('img/food.jpg') }}" alt="Food Photography">
+                        <h4>Food Photography</h4>
+                    </div>
+                </div>
+            </section>
+
+            <!-- LATEST PROJECTS -->
+            <section class="projects">
+                <div class="section-title">
+                    <h2>Latest Project</h2>
+                </div>
+                <div class="project-list">
+                    <!-- Project 1 -->
+                    <div class="project-card">
+                        <img src="{{ asset('img/kakek.png') }}" alt="Project 1">
+                        <div class="project-info">
+                            <h3>Human Interest Photography</h3>
+                            <p>Human interest, foto ini diambil untuk keperluan mengikuti perlombaan Fotografi Human Interest dan Kehidupan Sosial.</p>
+                            <span class="date">15 April 2024</span>
+                        </div>
+                    </div>
+                    <!-- Project 2 -->
+                    <div class="project-card">
+                        <img src="{{ asset('img/masjid.png') }}" alt="Project 2">
+                        <div class="project-info">
+                            <h3>Architecture Photography</h3>
+                            <p>Arsitektur foto ini diambil untuk keperluan perlombaan Fotografi Building dan Kebangsaan Indonesia.</p>
+                            <span class="date">05 Mei 2025</span>
+                        </div>
+                    </div>
+                    <!-- Project 3 -->
+                    <div class="project-card">
+                        <img src="{{ asset('img/mbak.JPG') }}" alt="Project 3">
+                        <div class="project-info">
+                            <h3>Portrait Photography</h3>
+                            <p>Portrait foto ini diambil pada saat mengikuti perkuliahan dalam mata kuliah Kamera Studio Lighting.</p>
+                            <span class="date">10 Agustus 2025</span>
+                        </div>
+                    </div>
+                    <!-- Project 4 -->
+                    <div class="project-card">
+                        <img src="{{ asset('img/food.jpg') }}" alt="Project 4">
+                        <div class="project-info">
+                            <h3>Food Photography</h3>
+                            <p>Food Photography, diambil guna memenuhi penugasan perkuliahan dalam mata kuliah Kamera Studio Lighting.</p>
+                            <span class="date">15 November 2025</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="cta-card">
+                    <div>
+                        <h3>Have any project in mind?</h3>
+                        <p>I'm available for freelancing</p>
+                    </div>
+                    <a href="mailto:asalim1544@gmail.com" class="btn-email">Email me</a>
+                </div>
+            </section>
+
+            <!-- WHY HIRE ME -->
+            <section class="hire-me">
+                <div class="section-title">
+                    <h2>Why Hire Me?</h2>
+                </div>
+                <div class="hire-grid">
+                    <div class="hire-item">
+                        <i class="fa-solid fa-business-time"></i>
+                        <h3>Workaholic</h3>
+                        <p>Saya seorang pekerja keras yang suka dengan tantangan.</p>
+                    </div>
+                    <div class="hire-item">
+                        <i class="fa-solid fa-clipboard-check"></i>
+                        <h3>Perfectionist</h3>
+                        <p>Saya seorang perfectionist. Terkadang sebagai perfectionist menyerahkan tugas kepada orang baru adalah sebuah keraguan besar.</p>
+                    </div>
+                    <div class="hire-item">
+                        <i class="fa-solid fa-handshake"></i>
+                        <h3>Cooperative</h3>
+                        <p>Saya dapat bekerja dalam kelompok kerja. Menjalin hubungan baik dengan client, maupun sejawat kantor.</p>
+                    </div>
+                    <div class="hire-item">
+                        <i class="fa-solid fa-comments"></i>
+                        <h3>Communicative</h3>
+                        <p>Dalam sebuah kerjasama terutama dalam pekerjaan kreatif. Apabila diperlukan membuat sebuah projek besar, maka komunikasi adalah hal utama.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TOOLS AND SKILLS -->
+            <section class="skills">
+                <h2>Tools and Skills</h2>
+                <div class="skills-grid">
+                    <!-- Lightroom -->
+                    <img src="{{ asset('img/photoshop-lightroom-classic.png') }}" alt="Lightroom Classic">
+                    <!-- Snapseed (placeholder) -->
+                    <img src="{{ asset('img/snapseed.png') }}" alt="Snapseed" onerror="this.src='https://ui-avatars.com/api/?name=Sn&background=8bc34a&color=fff&size=128&rounded=true'">
+                    <!-- Premiere Pro -->
+                    <img src="{{ asset('img/premiere-pro.png') }}" alt="Premiere Pro">
+                    <!-- Figma -->
+                    <img src="{{ asset('img/figma.png') }}" alt="Figma">
+                </div>
+                <div class="skills-divider"></div>
+            </section>
+
+            <!-- FOOTER CONTACT -->
+            <footer class="footer">
+                <h2>Contact me</h2>
+                <div class="footer-grid">
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fa-solid fa-location-dot"></i></div>
+                        <div class="contact-text">Kode Pos 60117, Kejawan Putih,<br>Sukolilo, Surabaya</div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fa-solid fa-envelope"></i></div>
+                        <div class="contact-text">asalim1544@gmail.com</div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fa-solid fa-phone"></i></div>
+                        <div class="contact-text">+62 858 1058 7802</div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fa-brands fa-instagram"></i></div>
+                        <div class="contact-text">@ahmad.sabiql</div>
+                    </div>
+                </div>
+            </footer>
+
+        </main>
+    </div>
+
+</body>
+</html>
