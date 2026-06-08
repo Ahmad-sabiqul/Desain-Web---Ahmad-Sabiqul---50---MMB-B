@@ -198,7 +198,7 @@
 
         /* --- Tools & Skills --- */
         .skills { margin-bottom: 100px; text-align: center; }
-        .skills h2 { font-size: 20px; margin-bottom: 40px; }
+        .skills h2 { font-size: 22px; margin-bottom: 40px; }
         .skills-grid { display: flex; justify-content: center; align-items: center; gap: 40px; }
         .skills-grid img { width: 60px; height: 60px; border-radius: 12px; object-fit: contain; }
         .skills-grid i { font-size: 60px; color: #fff; }
